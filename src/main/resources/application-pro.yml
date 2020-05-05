@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    initialization-mode: never
+
+logging:
+  level:
+    com.example.pharmacy: info

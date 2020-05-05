@@ -1,0 +1,13 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-initialize-a-database-using-spring-jdbc
+# https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html
+spring:
+  datasource:
+    initialization-mode: always
+    schema: classpath:sql/schema.sql
+    data: classpath:sql/data.sql
+
+
+logging:
+  level:
+    com.example.pharmacy: debug
+

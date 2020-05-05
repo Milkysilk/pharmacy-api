@@ -1,0 +1,23 @@
+server:
+  port: 9000
+  compression:
+    enabled: true
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mariadb://localhost/pharmacy
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 1
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+#  file:
+#    name: spring.log
+#  pattern:
+#    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread} %-5level %logger{50} - %msg%n'
+#    file: %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread} %-5level %logger{50} - %msg%n

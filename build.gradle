@@ -1,0 +1,79 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+
+//    排除tomcat依赖
+    compile.exclude module: "spring-boot-starter-tomcat"
+//    排除logback依赖
+    all {
+        compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.1.2'
+
+
+//    MariaDB驱动
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.5.4'
+//    Jetty
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+//    log4j2
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.2.5.RELEASE'
+//     jwt
+    compile 'io.jsonwebtoken:jjwt-api:0.11.1'
+    runtime 'io.jsonwebtoken:jjwt-impl:0.11.1',
+            // Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
+            //'org.bouncycastle:bcprov-jdk15on:1.60',
+            'io.jsonwebtoken:jjwt-jackson:0.11.1' // or 'io.jsonwebtoken:jjwt-gson:0.11.1' for gson
+//    https://search.maven.org/artifact/org.apache.commons/commons-text
+    implementation 'org.apache.commons:commons-text:1.8'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+}
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
