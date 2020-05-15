@@ -71,7 +71,7 @@ public class UserService implements UserDetailsService {
         if (user.getUsername().equals("root") && user.getEnable() == 0) {
             return false;
         }
-        if (user.getPassword() != null) {
+        if (user.getPassword() != null && !user.getPassword().equals("")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         return userMapper.update(user) > 0;

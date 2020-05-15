@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Secured("ROLE_BASIC")
 public class RepoService {
 
     private final RepoMapper repoMapper;
@@ -17,7 +16,8 @@ public class RepoService {
         this.repoMapper = repoMapper;
     }
 
-    @Secured("ROLE_REPO")
+//    @Secured("ROLE_REPO")
+    @Secured("ROLE_BASIC")
     public Repo create(Repo repo) {
         if (repoMapper.create(repo) == 1) {
             return repo;
@@ -26,17 +26,19 @@ public class RepoService {
         }
     }
 
-    @Secured({"ROLE_REPO", "ROLE_STORAGE"})
+    @Secured({"ROLE_BASIC", "ROLE_STORAGE"})
     public List<Repo> getAll() {
         return repoMapper.readAll();
     }
 
-    @Secured("ROLE_REPO")
+//    @Secured("ROLE_REPO")
+    @Secured("ROLE_BASIC")
     public Boolean update(Repo repo) {
         return repoMapper.update(repo) > 0;
     }
 
-    @Secured("ROLE_REPO")
+//    @Secured("ROLE_REPO")
+    @Secured("ROLE_BASIC")
     public Boolean delete(Integer id) {
         return repoMapper.delete(id) == 1;
     }

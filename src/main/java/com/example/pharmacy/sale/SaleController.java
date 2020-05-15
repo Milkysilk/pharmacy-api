@@ -33,10 +33,9 @@ public class SaleController {
         return new ResponseEntity<>(saleService.getAll(), HttpStatus.OK);
     }
 
-    @PutMapping
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") String id) {
+        log.debug(id);
         if (saleService.delete(Integer.parseInt(id))) {
             return new ResponseEntity<>("删除成功", HttpStatus.OK);
         } else {
