@@ -41,6 +41,7 @@ public class UserService implements UserDetailsService {
 
     @Secured("ROLE_ADMIN")
     public User create(User user) {
+        log.debug(user.getEnable() + "---");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (userMapper.create(user) == 1) {
             log.debug("新用户id：" + user.getId());
@@ -64,7 +65,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Boolean update(User user, Principal principal) {
-        if (!user.getUsername().equals(principal.getName()) && !user.getUsername().equals("root")) {
+        if (!user.getUsername().equals(principal.getName()) && !principal.getName().equals("root")) {
             return false;
         }
 //        不能停用超级用户呀

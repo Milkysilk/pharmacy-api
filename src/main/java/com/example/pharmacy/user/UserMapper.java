@@ -9,8 +9,8 @@ import java.util.List;
 public interface UserMapper {
 
 //    CREATE
-    @Insert("insert into user (username, password, name, gender, phone, email) " +
-            "values(#{username}, #{password}, #{name}, #{gender}, #{phone}, #{email})")
+    @Insert("insert into user (username, password, name, gender, phone, email, enable) " +
+            "values(#{username}, #{password}, #{name}, #{gender}, #{phone}, #{email}, #{enable})")
     @SelectKey(statement = "select last_insert_id();", keyProperty = "id", before = false, resultType = int.class)
     int create(User user);
 
@@ -55,7 +55,7 @@ public interface UserMapper {
 //    UPDATE
 //    @Update("update user set username = #{username}, password = #{password}, name = #{name}, gender = #{gender}, phone = #{phone}, email = #{email} where id = #{id};")
     @Update("<script>" +
-            "update user set name = #{name}, gender = #{gender}, phone = #{phone}, email = #{email}" +
+            "update user set name = #{name}, gender = #{gender}, phone = #{phone}, email = #{email}, enable = #{enable}" +
             "<if test='username != null and username != \"\"'>" +
             ", username = #{username}" +
             "</if>" +
